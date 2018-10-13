@@ -93,6 +93,7 @@
   right: 10px;
   top: 5px;
   display: none;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 992px) {

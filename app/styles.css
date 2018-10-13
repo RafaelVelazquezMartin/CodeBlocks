@@ -1,0 +1,54 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  /* grid-template-columns: repeat(7, 1fr); */
+  grid-template-columns: 100px repeat(5, 1fr) 100px;
+  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
+  grid-template-rows: 1fr 5fr 3fr 1fr;
+  grid-gap: 1rem;
+  grid-template-areas:
+    "nav nav nav nav nav nav nav"
+    ". canvas canvas canvas guessing guessing ."
+    ". items items items instructions instructions ."
+    ". . . . . . .";
+}
+
+.navbar {
+  grid-area: nav;
+}
+
+.instructions {
+  padding: 0.5rem;
+  grid-area: instructions;
+  background-color: aqua;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-auto-rows: minmax(100px, 1fr);
+  grid-gap: 1rem;
+}
+
+.instruction {
+  border: 1px solid black;
+}
+
+.guessing {
+  grid-area: guessing;
+  background-color: yellow;
+}
+
+.canvas {
+  grid-area: canvas;
+}
+
+#paper {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(220, 220, 220, 0.6);
+  border: 3px solid black;
+}
+
+.items {
+  grid-area: items;
+  background-color: green;
+}

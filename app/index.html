@@ -1,34 +1,104 @@
 <!DOCTYPE html>
 <html>
-	<head>
 
-		<title> Real time multi-player games with HTML5</title>
-			<!-- Load style sheet -->
-		<link href="index.css" media="screen" rel="stylesheet" type="text/css">
+<head>
+
+	<title> Real time multi-player games with HTML5</title>
+	<!-- Load style sheet -->
+	<link href="index.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="styles.css" media="screen" rel="stylesheet" type="text/css">
 
 	<!-- Library code -->
-		
-		 	<!-- Load socket.io client side contents. -->
-		<script src="/socket.io/socket.io.js"></script>
+
+	<!-- Load socket.io client side contents. -->
+	<script src="/socket.io/socket.io.js"></script>
 
 
-	 		<!-- Load the GUI rendering library code. -->
-		<script type="text/javascript" src="lib/dat.gui.min.js"></script>
-			<!-- Load the keyboard specific code --> 
-		<script type="text/javascript" src="lib/keyboard.js"></script>
-	 	
+	<!-- Load the GUI rendering library code. -->
+	<script type="text/javascript" src="lib/dat.gui.min.js"></script>
+	<!-- Load the keyboard specific code -->
+	<script type="text/javascript" src="lib/keyboard.js"></script>
+
 	<!-- Game code -->
 
-	 		<!-- Load the common game code. -->
-		<script type="text/javascript" src="game.core.js"></script>
-			<!-- Finally, Load the game client code. -->
-		<script type="text/javascript" src="client.js"></script>		
+	<!-- Load the common game code. -->
+	<script type="text/javascript" src="game.core.js"></script>
+	<!-- Finally, Load the game client code. -->
+	<script type="text/javascript" src="client.js"></script>
 
-	</head>
+</head>
 
-	<body>
-		<canvas id="viewport">
-		</canvas>
-	</body>
+<body>
+	<!-- <canvas id="viewport">
+		</canvas> -->
+	<div class="wrapper">
+		<section class="navbar">
+			<nav>
+				<div class="nav-wrapper">
+					<a href="#!" class="brand-logo">CodeBlocks</a>
+					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+					<ul class="right hide-on-med-and-down">
+						<li><a href="sass.html">Sass</a></li>
+						<li><a href="badges.html">Components</a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<ul class="sidenav" id="mobile-demo">
+				<li><a href="sass.html">Sass</a></li>
+				<li><a href="badges.html">Components</a></li>
+			</ul>
+		</section>
+
+		<section class="canvas">
+			<canvas id="paper">
+
+			</canvas>
+		</section>
+		<section class="instructions">
+			<div class="instruction">
+				<img src="" alt="">
+				<span>1</span>
+			</div>
+			<div class="instruction">
+				<img src="" alt="">
+				<span>2</span>
+			</div>
+			<div class="instruction">
+				<img src="" alt="">
+				<span>3</span>
+			</div>
+			<div class="instruction">
+				<img src="" alt="">
+				<span>4</span>
+			</div>
+			<div class="instruction">
+				<img src="" alt="">
+				<span>5</span>
+			</div>
+			<div class="instruction">
+				<img src="" alt="">
+				<span>6</span>
+			</div>
+			<div class="instruction">
+				<img src="" alt="">
+				<span>7</span>
+			</div>
+			<div class="instruction">
+				<img src="" alt="">
+				<span>8</span>
+			</div>
+		</section>
+		<section class="guessing">
+			guessing
+		</section>
+		<section class="items">
+			items
+		</section>
+	</div>
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
 
 </html>

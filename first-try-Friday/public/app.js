@@ -101,18 +101,51 @@ function drop(ev) {
   var pos = ev.target.id.split(",");
   pos[1] = Math.min(pos[1], instructions[pos[0]].length);
   var str = pos[0] + "," + pos[1];
-  if (data == "rotate_right") {
-    document.getElementById(str).innerHTML = "refresh";
-    document.getElementById(str).style = "";
-  } else if (data == "rotate_left") {
-    document.getElementById(str).innerHTML = "refresh";
-    document.getElementById(str).style = "transform: scale(-1, 1)";
-  } else {
-    document.getElementById(str).innerHTML = data;
-    document.getElementById(str).style = "";
-  }
+  showDelete(str);
+  document.getElementById(str).innerHTML = data;
+  document.getElementById(str).style = "";
   instructions[pos[0]][pos[1]] = data;
   document.getElementById(str).parentElement.style.border = "2px solid black";
+  console.log(instructions);
+}
+
+function deleteInstruction(ev) {
+  ev.preventDefault();
+  var icon =
+    ev.target.parentElement.previousElementSibling.previousElementSibling;
+  console.log(icon);
+
+  icon.innerHTML = "";
+  var pos = icon.id.split(",");
+  pos[1] = Math.min(pos[1], instructions[pos[0]].length);
+  var str = pos[0] + "," + pos[1];
+  instructions[pos[0]].splice(pos[1], 1);
+  console.log(instructions);
+  updateInstructions(instructions[pos[0]], pos[0]);
+}
+
+function updateInstructions(instruc = null, index = null) {
+  var tmp = document.getElementsByClassName("instruction-list");
+  var tmp2 = tmp[index].children;
+  let i = 0;
+  for (let ins of instruc) {
+    tmp2[i].firstElementChild.innerHTML = ins;
+    i++;
+  }
+  tmp2[i].firstElementChild.innerHTML = "";
+  hideDelete(`${index},${i}`);
+}
+
+function showDelete(id) {
+  document.getElementById(
+    id
+  ).nextElementSibling.nextElementSibling.style.display = "block";
+}
+
+function hideDelete(id) {
+  document.getElementById(
+    id
+  ).nextElementSibling.nextElementSibling.style.display = "none";
 }
 
 

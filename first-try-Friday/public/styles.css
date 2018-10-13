@@ -6,8 +6,8 @@
   grid-template-rows: 1fr auto;
   grid-gap: 1rem;
   grid-template-areas:
-    ". canvas canvas canvas canvas canvas ."
-    ". items items items instructions instructions .";
+    ". canvas canvas instructions instructions instructions ."
+    ". items items items items items .";
   margin: 30px 0;
 }
 
@@ -20,7 +20,7 @@
   grid-area: instructions;
   background-color: rgba(220, 220, 220, 0.9);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   grid-auto-rows: minmax(100px, 1fr);
   grid-gap: 1rem;
 }
@@ -31,16 +31,17 @@
   flex-direction: column;
   align-content: center;
   justify-content: center;
+  position: relative;
 }
 
 .instruction > i {
   text-align: center;
   width: 100%;
   height: 70%;
-  font-size: 5rem;
+  font-size: 10rem;
 }
 
-.instruction > span {
+.instruction > .index {
   text-align: center;
   width: 100%;
   height: 30%;
@@ -80,11 +81,18 @@
 .instruction-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-auto-rows: minmax(100px, 1fr);
+  grid-auto-rows: minmax(200px, 1fr);
   grid-gap: 1rem;
   width: 100%;
   padding: 8px;
   background-color: rgba(220, 220, 220, 1);
+}
+
+.delete {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  display: none;
 }
 
 @media screen and (max-width: 992px) {

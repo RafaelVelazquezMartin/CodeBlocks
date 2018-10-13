@@ -252,7 +252,7 @@ game_core.prototype.v_lerp = function(v,tv,t) { return { x: this.lerp(v.x, tv.x,
             //Draw a status update
         game.ctx.fillStyle = this.info_color;
         game.ctx.fillText(this.state, this.pos.x+10, this.pos.y + 4);
-    
+        
     }; //game_player.draw
 
 /*
@@ -847,6 +847,28 @@ game_core.prototype.client_update = function() {
 
         //Work out the fps average
     this.client_refresh_fps();
+	
+	 alert("drawing");
+
+			// Padding
+			var p = 10;
+
+            function drawBoard(){
+				for (var x = 0; x <= game.viewport.width; x += 40) {
+				  game.ctx.moveTo(0.5 + x + p, p);
+				  game.ctx.lineTo(0.5 + x + p, bh + p);
+				}
+
+            for (var x = 0; x <= game.viewport.height; x += 40) {
+              game.ctx.moveTo(p, 0.5 + x + p);
+              game.ctx.lineTo(bw + p, 0.5 + x + p);
+            }
+
+            game.ctx.strokeStyle = "yellow";
+            game.ctx.stroke();
+            }
+
+            drawBoard();
 
 }; //game_core.update_client
 

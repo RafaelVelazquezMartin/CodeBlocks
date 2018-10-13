@@ -1,4 +1,32 @@
+var canvas;
+var context;
+var width;
+var height;
+
+//window.onload = function() {
+  canvas = document.getElementById("paper");
+  context = canvas.getContext("2d");
+  width = canvas.width;
+  height = canvas.height;
+
+  for (var x = 0; x < width; x += width / 9) {
+    context.moveTo(x, 0);
+    context.lineTo(x, height);
+  }
+
+  for (var y = 0; y < height; y += height / 9) {
+    context.moveTo(0, y);
+    context.lineTo(width, y);
+  }
+
+  context.strokeStyle = "black";
+  context.stroke();
+//};
+
+
 var socket = io.connect("/");
+var id;
+
 //Now we can listen for that event
 socket.on("onconnected", function(data) {
   //Note that the data is the object we sent from the server, as is. So we can assume its id exists.
@@ -6,7 +34,41 @@ socket.on("onconnected", function(data) {
     "Connected successfully to the socket.io server. My server side ID is " +
       data.id
   );
+
+  id = data.id;
 });
+
+socket.on('set challenge', function(data){
+  if(data.id == id){
+    alert("Move the objects on the grid to form a " + data.challenge.name);
+    var elements = document.getElementsByClassName("instruction");
+    for(var j=0; j<elements.length; j++){
+      elements[j].style = "pointer-events : auto; opacity : 1.0";
+    }
+  }
+  else{
+    var elements = document.getElementsByClassName("instruction");
+    for(var j=0; j<elements.length; j++){
+      elements[j].style = "pointer-events : none; opacity : 0.4";
+    }
+  }
+
+  for(shape in data.challenge.blockpositions){
+    var positions = data.challenge.blockpositions[shape];
+    for(var k = 0; k < positions.length; k++){
+      var x0 = positions[k][0];
+      var y0 = positions[k][1]; 
+      
+      switch(String(shape)){
+        case "rectangle" : context.fillRect(width/9 * x0, height/9 * y0, width/9 , height/9 );
+      }
+      
+    }
+  }
+});
+
+
+
 
 var num_of_objects = 2;
 var instructions = [];
@@ -53,24 +115,5 @@ function drop(ev) {
   document.getElementById(str).parentElement.style.border = "2px solid black";
 }
 
-var grid = [];
 
-window.onload = function() {
-  var canvas = document.getElementById("paper");
-  var context = canvas.getContext("2d");
-  var width = canvas.width;
-  var height = canvas.height;
 
-  for (var x = 0; x < width; x += width / 9) {
-    context.moveTo(x, 0);
-    context.lineTo(x, height);
-  }
-
-  for (var y = 0; y < height; y += height / 9) {
-    context.moveTo(0, y);
-    context.lineTo(width, y);
-  }
-
-  context.strokeStyle = "black";
-  context.stroke();
-};

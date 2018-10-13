@@ -16,6 +16,7 @@ app.get('/', function(req, res){
 
 
 var clients = [];
+var challenge_on = false;
 
 // Listen for incoming connections from clients
 io.sockets.on("connection", function(socket) {
@@ -39,6 +40,17 @@ io.sockets.on("connection", function(socket) {
             
   //Useful to know when someone connects
   console.log('\t socket.io:: player ' + socket.userid + ' connected');
+
+  if(!challenge_on){
+    console.log("Creating a challenge");
+    challenge_on = true;
+    var data = {challenge : create_challenge(), id : clients[random_integer(clients.length)].userid};
+    console.log(data.challenge.name);
+    socket.emit('set challenge', data);
+    console.log("Emitted a challenge to " + data.id);
+
+    
+  }
                     
   //When this client disconnects
   socket.on('disconnect', function () {
@@ -47,3 +59,24 @@ io.sockets.on("connection", function(socket) {
   }); //client.on disconnect
 
 });
+
+//var shapes = ["square", "rectangle", "sphere"];
+var challenges = [{name:"T", blocks:5}];
+
+var create_challenge = function(){
+  var challenge = {}; 
+  var i = random_integer(challenges.length);
+
+  for(var j = 0; j < 5; j++){
+
+  }
+  
+  challenge.name = challenges[i].name; 
+  challenge.blockpositions = {rectangle:[[1, 2], [2, 5], [1, 4], [4, 5], [7, 8]]};
+
+  return challenge;
+}
+
+var random_integer = function(limit){
+  return Math.floor(Math.random() * limit);
+}

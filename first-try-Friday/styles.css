@@ -1,21 +1,18 @@
 .wrapper {
-  width: 100vw;
-  height: 100vh;
   display: grid;
   /* grid-template-columns: repeat(7, 1fr); */
   grid-template-columns: 100px repeat(5, 1fr) 100px;
   /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
-  grid-template-rows: 1fr 5fr 3fr 1fr;
+  grid-template-rows: 1fr auto;
   grid-gap: 1rem;
   grid-template-areas:
-    "nav nav nav nav nav nav nav"
-    ". canvas canvas canvas guessing guessing ."
-    ". items items items instructions instructions ."
-    ". . . . . . .";
+    ". canvas canvas canvas canvas canvas ."
+    ". items items items instructions instructions .";
+  margin: 30px 0;
 }
 
 .navbar {
-  grid-area: nav;
+  /* grid-area: nav; */
 }
 
 .instructions {
@@ -23,7 +20,7 @@
   grid-area: instructions;
   background-color: rgba(220, 220, 220, 0.9);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-auto-rows: minmax(100px, 1fr);
   grid-gap: 1rem;
 }
@@ -49,10 +46,10 @@
   height: 30%;
 }
 
-.guessing {
+/* .guessing {
   grid-area: guessing;
   background-color: rgba(220, 220, 220, 0.6);
-}
+} */
 
 .canvas {
   grid-area: canvas;
@@ -68,11 +65,16 @@
 .items {
   grid-area: items;
   background-color: rgba(220, 220, 220, 0.9);
+  padding: 0.5rem;
 }
 
 .item {
   display: flex;
   flex-direction: column;
+}
+
+.item-name {
+  font-size: 1.5rem;
 }
 
 .instruction-list {
@@ -83,4 +85,14 @@
   width: 100%;
   padding: 8px;
   background-color: rgba(220, 220, 220, 1);
+}
+
+@media screen and (max-width: 992px) {
+  .wrapper {
+    grid-template-rows: 5fr auto auto;
+    grid-template-areas:
+      ". canvas canvas canvas canvas canvas ."
+      ". instructions instructions instructions instructions instructions ."
+      ". items items items items items .";
+  }
 }

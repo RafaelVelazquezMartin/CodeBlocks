@@ -21,7 +21,7 @@
 .instructions {
   padding: 0.5rem;
   grid-area: instructions;
-  background-color: aqua;
+  background-color: rgba(220, 220, 220, 0.9);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   grid-auto-rows: minmax(100px, 1fr);
@@ -29,12 +29,29 @@
 }
 
 .instruction {
-  border: 1px solid black;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.instruction > i {
+  text-align: center;
+  width: 100%;
+  height: 70%;
+  font-size: 5rem;
+}
+
+.instruction > span {
+  text-align: center;
+  width: 100%;
+  height: 30%;
 }
 
 .guessing {
   grid-area: guessing;
-  background-color: yellow;
+  background-color: rgba(220, 220, 220, 0.6);
 }
 
 .canvas {
@@ -50,5 +67,20 @@
 
 .items {
   grid-area: items;
-  background-color: green;
+  background-color: rgba(220, 220, 220, 0.9);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+.instruction-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-auto-rows: minmax(100px, 1fr);
+  grid-gap: 1rem;
+  width: 100%;
+  padding: 8px;
+  background-color: rgba(220, 220, 220, 1);
 }

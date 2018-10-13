@@ -20,7 +20,7 @@ function dragLeave(ev){
 }
 
 function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
+	ev.dataTransfer.setData("text", ev.target.id);
 }
 
 function drop(ev) {
@@ -29,7 +29,41 @@ function drop(ev) {
 	var pos = ev.target.id.split(",");
 	pos[1] = Math.min(pos[1], instructions[pos[0]].length);
 	var str = pos[0] + ',' + pos[1];
-	document.getElementById(str).innerHTML = data;
+	if(data == "rotate_right"){
+		document.getElementById(str).innerHTML = "refresh";
+		document.getElementById(str).style="";
+	} 
+	else if(data == "rotate_left"){
+		document.getElementById(str).innerHTML = "refresh";
+		document.getElementById(str).style="transform: scale(-1, 1)";
+	}
+	else{ 
+		document.getElementById(str).innerHTML = data;
+		document.getElementById(str).style="";
+	}
 	instructions[pos[0]][pos[1]]= data;
 	document.getElementById(str).parentElement.style.border = "2px solid black";
 }
+
+
+var grid = [];
+
+window.onload = function(){
+	var canvas = document.getElementById('paper');
+	var context = canvas.getContext("2d");
+	var width = canvas.width;
+	var height = canvas.height;
+
+	for(var x = 0; x < width; x += width/9){
+		context.moveTo(x, 0);
+		context.lineTo(x, height);
+	}
+
+	for(var y = 0; y < height; y += height/9){
+		context.moveTo(0, y);
+		context.lineTo(width, y);
+	}
+
+	context.strokeStyle = "black";
+	context.stroke();
+};

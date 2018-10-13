@@ -7,6 +7,10 @@ var io = require("socket.io")(server);
 // Routing
 app.use(express.static("public"));
 
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
 // Listen for incoming connections from clients
 io.sockets.on("connection", function(socket) {
   console.log("SOmeone connected");

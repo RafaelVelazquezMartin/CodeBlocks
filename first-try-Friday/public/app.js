@@ -45,12 +45,16 @@ socket.on('set challenge', function(data){
     for(var j=0; j<elements.length; j++){
       elements[j].style = "pointer-events : auto; opacity : 1.0";
     }
+    document.getElementById('start-btn').style = "pointer-events : auto; opacity : 1";
+    document.getElementById('stop-btn').style = "pointer-events : auto; opacity : 1";
   }
   else{
     var elements = document.getElementsByClassName("instruction");
     for(var j=0; j<elements.length; j++){
       elements[j].style = "pointer-events : none; opacity : 0.4";
     }
+    document.getElementById('start-btn').style = "pointer-events : none; opacity : 0.4";
+    document.getElementById('stop-btn').style = "pointer-events : none; opacity : 0.4";
   }
 
   for(shape in data.challenge.blockpositions){
@@ -68,6 +72,14 @@ socket.on('set challenge', function(data){
 });
 
 
+var start = function(){
+  socket.emit('start');
+}
+
+
+var end = function(){
+  socket.emit('end');
+}
 
 
 var num_of_objects = 2;

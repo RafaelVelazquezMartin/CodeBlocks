@@ -68,8 +68,8 @@
           <i class="material-icons" id="rotate_left" draggable="true" ondragstart="drag(event)">rotate_left</i>
           <span class="info">Rotate left</span>
         </div>
-        <a class="waves-effect waves-light btn green" onclick="socket.emit('start')"><i class="material-icons right">play_arrow</i>start</a>
-        <a class="waves-effect waves-light btn red" onclick="socket.emit('end')"><i class="material-icons right">stop</i>stop</a>
+        <a class="waves-effect waves-light btn green" id="start-btn"  onclick="start()"><i class="material-icons right">play_arrow</i>start</a>
+        <a class="waves-effect waves-light btn red" id="stop-btn" onclick="end()"><i class="material-icons right">stop</i>stop</a>
       </section>
       <section class="items">
         <div class="item">

@@ -4,25 +4,24 @@ var width;
 var height;
 
 //window.onload = function() {
-  canvas = document.getElementById("paper");
-  context = canvas.getContext("2d");
-  width = canvas.width;
-  height = canvas.height;
+canvas = document.getElementById("paper");
+context = canvas.getContext("2d");
+width = canvas.width;
+height = canvas.height;
 
-  for (var x = 0; x < width; x += width / 9) {
-    context.moveTo(x, 0);
-    context.lineTo(x, height);
-  }
+for (var x = 0; x < width; x += width / 9) {
+  context.moveTo(x, 0);
+  context.lineTo(x, height);
+}
 
-  for (var y = 0; y < height; y += height / 9) {
-    context.moveTo(0, y);
-    context.lineTo(width, y);
-  }
+for (var y = 0; y < height; y += height / 9) {
+  context.moveTo(0, y);
+  context.lineTo(width, y);
+}
 
-  context.strokeStyle = "black";
-  context.stroke();
+context.strokeStyle = "black";
+context.stroke();
 //};
-
 
 var socket = io.connect("/");
 var id;
@@ -38,37 +37,38 @@ socket.on("onconnected", function(data) {
   id = data.id;
 });
 
-socket.on('set challenge', function(data){
-  if(data.id == id){
+socket.on("set challenge", function(data) {
+  if (data.id == id) {
     alert("Move the objects on the grid to form a " + data.challenge.name);
     var elements = document.getElementsByClassName("instruction");
-    for(var j=0; j<elements.length; j++){
+    for (var j = 0; j < elements.length; j++) {
       elements[j].style = "pointer-events : auto; opacity : 1.0";
     }
-  }
-  else{
+  } else {
     var elements = document.getElementsByClassName("instruction");
-    for(var j=0; j<elements.length; j++){
+    for (var j = 0; j < elements.length; j++) {
       elements[j].style = "pointer-events : none; opacity : 0.4";
     }
   }
 
-  for(shape in data.challenge.blockpositions){
+  for (shape in data.challenge.blockpositions) {
     var positions = data.challenge.blockpositions[shape];
-    for(var k = 0; k < positions.length; k++){
+    for (var k = 0; k < positions.length; k++) {
       var x0 = positions[k][0];
-      var y0 = positions[k][1]; 
-      
-      switch(String(shape)){
-        case "rectangle" : context.fillRect(width/9 * x0, height/9 * y0, width/9 , height/9 );
+      var y0 = positions[k][1];
+
+      switch (String(shape)) {
+        case "rectangle":
+          context.fillRect(
+            (width / 9) * x0,
+            (height / 9) * y0,
+            width / 9,
+            height / 9
+          );
       }
-      
     }
   }
 });
-
-
-
 
 var num_of_objects = 2;
 var instructions = [];
@@ -106,21 +106,21 @@ function drop(ev) {
   document.getElementById(str).style = "";
   instructions[pos[0]][pos[1]] = data;
   document.getElementById(str).parentElement.style.border = "2px solid black";
-  console.log(instructions);
+  // console.log(instructions);
 }
 
 function deleteInstruction(ev) {
   ev.preventDefault();
   var icon =
     ev.target.parentElement.previousElementSibling.previousElementSibling;
-  console.log(icon);
+  // console.log(icon);
 
   icon.innerHTML = "";
   var pos = icon.id.split(",");
   pos[1] = Math.min(pos[1], instructions[pos[0]].length);
   var str = pos[0] + "," + pos[1];
   instructions[pos[0]].splice(pos[1], 1);
-  console.log(instructions);
+  // console.log(instructions);
   updateInstructions(instructions[pos[0]], pos[0]);
 }
 
@@ -148,5 +148,11 @@ function hideDelete(id) {
   ).nextElementSibling.nextElementSibling.style.display = "none";
 }
 
+function showModal() {
+  $(".modal").modal();
+}
 
-
+$(document).ready(function() {
+  // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+  $(".modal").modal();
+});

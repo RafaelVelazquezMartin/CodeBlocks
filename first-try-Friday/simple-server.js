@@ -51,8 +51,9 @@ io.sockets.on("connection", function(socket) {
     console.log("Emitted a challenge to " + data.id);
   })
 
-  socket.on('end', function(){
-    socket.broadcast.emit('end');
+  socket.on('end', function(newblockpositions){
+    challenge_on = false;
+    socket.broadcast.emit('end', newblockpositions);
   })
                    
   

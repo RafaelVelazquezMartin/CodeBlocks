@@ -50,7 +50,7 @@ socket.on("set challenge", function(data) {
       elements[j].style = "pointer-events : auto; opacity : 1.0";
     }
     document.getElementById("start-btn").style =
-      "pointer-events : auto; opacity : 1";
+      "pointer-events : none; opacity : 0.4";
     document.getElementById("stop-btn").style =
       "pointer-events : auto; opacity : 1";
   } else {
@@ -83,21 +83,25 @@ var start = function() {
 };
 
 var end = function() {
-  blockpositions = exec_instructions(instructions);
+  blockpositions = exec_instructions(instructions, blockpositions);
   draw_blocks(blockpositions);
   socket.emit("end", blockpositions);
+  document.getElementById("start-btn").style =
+  "pointer-events : auto; opacity : 1";
+  document.getElementById("stop-btn").style =
+  "pointer-events : none; opacity : 0.4";
 };
 
 var draw_blocks = function(bpos) {
   context.clearRect(0, 0, canvas.width, canvas.height);
   draw_grid();
-  for (shape in bpos) {
-    var positions = bpos[shape];
-    for (var k = 0; k < positions.length; k++) {
-      var x0 = positions[k][0];
-      var y0 = positions[k][1];
 
-      switch (String(shape)) {
+    for (var k = 0; k < bpos.length; k++) {
+      var x0 = bpos[k][0];
+      var y0 = bpos[k][1];
+      
+      context.fillStyle = "black";
+      switch (String(bpos[k][3])) {
         case "rectangle":
           context.fillRect(
             (width / 9) * x0,
@@ -106,12 +110,56 @@ var draw_blocks = function(bpos) {
             height / 9
           );
       }
+      
+      context.fillStyle = "white";
+      context.font = "bold 16px Arial";
+      context.fillText(k+1, (width / 9) * (x0 +0.5), (height / 9) * (y0 +0.5) );
+      
     }
-  }
+  
 };
 
-var exec_instructions = function(instructions) {
-  return { rectangle: [[2, 2], [2, 8], [0, 4], [7, 5], [7, 8]] };
+var exec_instructions = function(instructions, bpos) {
+  for(var item=0; item<num_of_objects; item++){
+    for(var i=0; i < instructions[item].length; i++){
+      switch(instructions[item][i]){
+        case "arrow_back": {
+          //alert("arrow_back");
+          if(bpos[item][0] != 0){
+            bpos[item][0] -= 1;
+          }
+          //alert(bpos[item]);
+          break;
+        }
+        case "arrow_forward": {
+          //alert("arrow_fwd");
+          if(bpos[item][0] != 8){
+            bpos[item][0] +=1;
+          }
+          //alert(bpos[item]);
+          break;
+        }
+        case "arrow_upward": {
+          //alert("arrow_up");
+          if(bpos[item][1] != 0){
+            bpos[item][1] -=1;
+          }
+          //alert(bpos[item]);
+          break;
+        }
+        case "arrow_downward" : {
+          //alert("arrow_up");
+          if(bpos[item][1] != 8){
+            bpos[item][1] += 1;
+          }
+          //alert(bpos[item]);
+          break;
+        }
+      }
+    }
+  } 
+
+  return bpos;
 };
 
 var num_of_objects = 5;

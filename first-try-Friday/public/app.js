@@ -76,6 +76,8 @@ socket.on("end", function(newblockpositions) {
   $(document).ready(function() {
     $(".modal").modal("open");
   });
+  document.getElementById("start-btn").style =
+  "pointer-events : auto; opacity : 1";
 });
 
 var start = function() {

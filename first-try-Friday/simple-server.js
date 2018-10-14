@@ -61,6 +61,9 @@ io.sockets.on("connection", function(socket) {
   socket.on('disconnect', function () {
       //Useful to know when someone disconnects
       console.log('\t socket.io:: client disconnected ' + socket.userid );
+      var index = clients.indexOf(socket);
+      if (index !== -1) clients.splice(index, 1);
+      console.log("Number of clients is " + clients.length);
   }); //client.on disconnect
 
 });

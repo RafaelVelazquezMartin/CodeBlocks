@@ -66,23 +66,7 @@ socket.on("set challenge", function(data) {
   }
 
   blockpositions = data.challenge.blockpositions;
-  for (shape in data.challenge.blockpositions) {
-    var positions = data.challenge.blockpositions[shape];
-    for (var k = 0; k < positions.length; k++) {
-      var x0 = positions[k][0];
-      var y0 = positions[k][1];
-
-      switch (String(shape)) {
-        case "rectangle":
-          context.fillRect(
-            (width / 9) * x0,
-            (height / 9) * y0,
-            width / 9,
-            height / 9
-          );
-      }
-    }
-  }
+  draw_blocks(blockpositions);
 });
 
 socket.on("end", function(newblockpositions) {

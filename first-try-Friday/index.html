@@ -68,9 +68,8 @@
           <i class="material-icons" id="rotate_left" draggable="true" ondragstart="drag(event)">rotate_left</i>
           <span class="info">Rotate left</span>
         </div>
-        <a class="waves-effect waves-light btn green"><i class="material-icons right">play_arrow</i>start</a>
-        <a class="waves-effect waves-light btn red modal-trigger" href="#vote"><i class="material-icons right">stop</i>stop</a>
-
+        <a class="waves-effect waves-light btn green" id="start-btn" onclick="start()"><i class="material-icons right">play_arrow</i>start</a>
+        <a class="waves-effect waves-light btn red" id="stop-btn" onclick="end()"><i class="material-icons right">stop</i>stop</a>
       </section>
       <section class="items card-exp card-1">
         <div class="item">
@@ -176,6 +175,189 @@
               <span class="info">8</span>
               <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
               <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons" onclick="deleteInstruction(event)">delete</i></a>
+            </div>
+          </div>
+          <div class="item">
+            <span class="item-name">Item 3:</span>
+            <div class="instruction-list">
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="2,0" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">1</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="2,1" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">2</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="2,2" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">3</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="2,3" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">4</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="2,4" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">5</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="2,5" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">6</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="2,6" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">7</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="2,7" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">8</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <span class="item-name">Item 4:</span>
+            <div class="instruction-list">
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="3,0" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">1</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="3,1" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">2</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="3,2" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">3</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="3,3" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">4</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="3,4" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">5</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="3,5" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">6</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="3,6" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">7</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="3,7" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">8</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <span class="item-name">Item 5:</span>
+            <div class="instruction-list">
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="4,0" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">1</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="4,1" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">2</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="4,2" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">3</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="4,3" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">4</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="4,4" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">5</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="4,5" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">6</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="4,6" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">7</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
+              <div class="instruction card-exp card-2">
+                <i class="material-icons" id="4,7" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragover="allowDrop(event)"></i>
+                <span class="info">8</span>
+                <!-- <span class="delete" onclick="deleteInstruction(event)">X</span> -->
+                <a class="delete btn-floating btn-small waves-effect waves-light red "><i class="material-icons"
+                    onclick="deleteInstruction(event)">delete</i></a>
+              </div>
             </div>
           </div>
           <br>

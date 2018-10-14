@@ -9,22 +9,27 @@ context = canvas.getContext("2d");
 width = canvas.width;
 height = canvas.height;
 
-for (var x = 0; x < width; x += width / 9) {
-  context.moveTo(x, 0);
-  context.lineTo(x, height);
-}
+var draw_grid = function() {
+  for (var x = 0; x < width; x += width / 9) {
+    context.moveTo(x, 0);
+    context.lineTo(x, height);
+  }
 
-for (var y = 0; y < height; y += height / 9) {
-  context.moveTo(0, y);
-  context.lineTo(width, y);
-}
+  for (var y = 0; y < height; y += height / 9) {
+    context.moveTo(0, y);
+    context.lineTo(width, y);
+  }
 
-context.strokeStyle = "black";
-context.stroke();
+  context.strokeStyle = "black";
+  context.stroke();
+};
+
+draw_grid();
 //};
 
 var socket = io.connect("/");
 var id;
+var blockpositions = [];
 
 //Now we can listen for that event
 socket.on("onconnected", function(data) {
@@ -44,13 +49,23 @@ socket.on("set challenge", function(data) {
     for (var j = 0; j < elements.length; j++) {
       elements[j].style = "pointer-events : auto; opacity : 1.0";
     }
+    document.getElementById("start-btn").style =
+      "pointer-events : auto; opacity : 1";
+    document.getElementById("stop-btn").style =
+      "pointer-events : auto; opacity : 1";
   } else {
+    alert("One of the players is drawing.");
     var elements = document.getElementsByClassName("instruction");
     for (var j = 0; j < elements.length; j++) {
       elements[j].style = "pointer-events : none; opacity : 0.4";
     }
+    document.getElementById("start-btn").style =
+      "pointer-events : none; opacity : 0.4";
+    document.getElementById("stop-btn").style =
+      "pointer-events : none; opacity : 0.4";
   }
 
+  blockpositions = data.challenge.blockpositions;
   for (shape in data.challenge.blockpositions) {
     var positions = data.challenge.blockpositions[shape];
     for (var k = 0; k < positions.length; k++) {
@@ -70,7 +85,52 @@ socket.on("set challenge", function(data) {
   }
 });
 
-var num_of_objects = 2;
+socket.on("end", function(newblockpositions) {
+  blockpositions = newblockpositions;
+  draw_blocks(blockpositions);
+  // alert("Guess what the shape is.");
+  $(document).ready(function() {
+    $(".modal").modal("open");
+  });
+});
+
+var start = function() {
+  socket.emit("start");
+};
+
+var end = function() {
+  blockpositions = exec_instructions(instructions);
+  draw_blocks(blockpositions);
+  socket.emit("end", blockpositions);
+};
+
+var draw_blocks = function(bpos) {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  draw_grid();
+  for (shape in bpos) {
+    var positions = bpos[shape];
+    for (var k = 0; k < positions.length; k++) {
+      var x0 = positions[k][0];
+      var y0 = positions[k][1];
+
+      switch (String(shape)) {
+        case "rectangle":
+          context.fillRect(
+            (width / 9) * x0,
+            (height / 9) * y0,
+            width / 9,
+            height / 9
+          );
+      }
+    }
+  }
+};
+
+var exec_instructions = function(instructions) {
+  return { rectangle: [[2, 2], [2, 8], [0, 4], [7, 5], [7, 8]] };
+};
+
+var num_of_objects = 5;
 var instructions = [];
 for (i = 0; i < num_of_objects; i++) {
   instructions[i] = [];

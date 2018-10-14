@@ -41,17 +41,22 @@ io.sockets.on("connection", function(socket) {
   //Useful to know when someone connects
   console.log('\t socket.io:: player ' + socket.userid + ' connected');
 
-  if(!challenge_on){
+  
+  socket.on('start', function(){
     console.log("Creating a challenge");
     challenge_on = true;
     var data = {challenge : create_challenge(), id : clients[random_integer(clients.length)].userid};
     console.log(data.challenge.name);
-    socket.emit('set challenge', data);
+    io.sockets.emit('set challenge', data);
     console.log("Emitted a challenge to " + data.id);
+  })
 
-    
-  }
-                    
+  socket.on('end', function(newblockpositions){
+    challenge_on = false;
+    socket.broadcast.emit('end', newblockpositions);
+  })
+                   
+  
   //When this client disconnects
   socket.on('disconnect', function () {
       //Useful to know when someone disconnects

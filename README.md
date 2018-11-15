@@ -11,4 +11,4 @@ Javascript w/ Socket.io multiplayer game that allows children to learn about the
 5. The other players **'The Guessers'** are then prompted to guess what shape the other player was attempting to form.
 
 
-This game was developed as a challenge made by J.P. Morgan at the 48hr GUTS 2018 Hackathon, with the collaboration of Martin Vrabec ().
+This game was developed as a challenge made by J.P. Morgan at the 48hr [GUTS 2018 Hackathon](https://gutechsoc.com/hackathon), with the collaboration of [Martin Vrabec](https://github.com/martinvrabec).

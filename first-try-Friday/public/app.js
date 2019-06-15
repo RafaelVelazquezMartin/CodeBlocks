@@ -9,7 +9,7 @@ context = canvas.getContext("2d");
 width = canvas.width;
 height = canvas.height;
 
-var draw_grid = function() {
+var draw_grid = function () {
   for (var x = 0; x < width; x += width / 9) {
     context.moveTo(x, 0);
     context.lineTo(x, height);
@@ -32,17 +32,17 @@ var id;
 var blockpositions = [];
 
 //Now we can listen for that event
-socket.on("onconnected", function(data) {
+socket.on("onconnected", function (data) {
   //Note that the data is the object we sent from the server, as is. So we can assume its id exists.
   console.log(
     "Connected successfully to the socket.io server. My server side ID is " +
-      data.id
+    data.id
   );
 
   id = data.id;
 });
 
-socket.on("set challenge", function(data) {
+socket.on("set challenge", function (data) {
   if (data.id == id) {
     alert("Move the objects on the grid to form a " + data.challenge.name);
     var elements = document.getElementsByClassName("instruction");
@@ -85,26 +85,26 @@ socket.on("set challenge", function(data) {
   }
 });
 
-socket.on("end", function(newblockpositions) {
+socket.on("end", function (newblockpositions) {
   blockpositions = newblockpositions;
   draw_blocks(blockpositions);
   // alert("Guess what the shape is.");
-  $(document).ready(function() {
+  $(document).ready(function () {
     $(".modal").modal("open");
   });
 });
 
-var start = function() {
+var start = function () {
   socket.emit("start");
 };
 
-var end = function() {
+var end = function () {
   blockpositions = exec_instructions(instructions);
   draw_blocks(blockpositions);
   socket.emit("end", blockpositions);
 };
 
-var draw_blocks = function(bpos) {
+var draw_blocks = function (bpos) {
   context.clearRect(0, 0, canvas.width, canvas.height);
   draw_grid();
   for (shape in bpos) {
@@ -126,7 +126,7 @@ var draw_blocks = function(bpos) {
   }
 };
 
-var exec_instructions = function(instructions) {
+var exec_instructions = function (instructions) {
   return { rectangle: [[2, 2], [2, 8], [0, 4], [7, 5], [7, 8]] };
 };
 
@@ -212,7 +212,7 @@ function showModal() {
   $(".modal").modal();
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
   $(".modal").modal();
 });

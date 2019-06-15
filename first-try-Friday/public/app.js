@@ -42,6 +42,16 @@ socket.on("onconnected", function (data) {
   id = data.id;
 });
 
+socket.on('timer', function (data) {
+  // console.log(data.countdown);
+  document.getElementById('counter-bar').style.width = `${(data.countdown / data.totalSecs) * 100}%`;
+  document.getElementById('counter').innerHTML = data.countdown;
+});
+
+// $('#reset').click(function () {
+//   socket.emit('reset timer');
+// });
+
 socket.on("set challenge", function (data) {
   if (data.id == id) {
     alert("Move the objects on the grid to form a " + data.challenge.name);
@@ -55,6 +65,7 @@ socket.on("set challenge", function (data) {
       "pointer-events : auto; opacity : 1";
   } else {
     alert("One of the players is drawing.");
+    // grey out instruction buttons for players waiting to guess
     var elements = document.getElementsByClassName("instruction");
     for (var j = 0; j < elements.length; j++) {
       elements[j].style = "pointer-events : none; opacity : 0.4";
@@ -63,6 +74,13 @@ socket.on("set challenge", function (data) {
       "pointer-events : none; opacity : 0.4";
     document.getElementById("stop-btn").style =
       "pointer-events : none; opacity : 0.4";
+
+    // var timer = document.getElementsByClassName("timer")[0];
+    // var items = document.getElementsByClassName("items")[0];
+    // var instructions = document.getElementsByClassName("instructions")[0];
+    // timer.style.display = "block";
+    // instructions.style.display = "none";
+    // items.style.display = "none";
   }
 
   blockpositions = data.challenge.blockpositions;
@@ -72,71 +90,67 @@ socket.on("set challenge", function (data) {
 socket.on("end", function (newblockpositions) {
   blockpositions = newblockpositions;
   draw_blocks(blockpositions);
+  socket.emit('reset timer');
   // alert("Guess what the shape is.");
   $(document).ready(function () {
     $(".modal").modal("open");
   });
   document.getElementById("start-btn").style =
-  "pointer-events : auto; opacity : 1";
+    "pointer-events : auto; opacity : 1";
 });
 
 var start = function () {
   socket.emit("start");
 };
 
-<<<<<<< HEAD
 var end = function () {
-  blockpositions = exec_instructions(instructions);
-=======
-var end = function() {
+
   blockpositions = exec_instructions(instructions, blockpositions);
->>>>>>> 7c4032e7cc9147fe6b2b74de95d1ee830703c028
   draw_blocks(blockpositions);
   socket.emit("end", blockpositions);
+  socket.emit('reset timer');
+
+
   document.getElementById("start-btn").style =
-  "pointer-events : auto; opacity : 1";
+    "pointer-events : auto; opacity : 1";
   document.getElementById("stop-btn").style =
-  "pointer-events : none; opacity : 0.4";
+    "pointer-events : none; opacity : 0.4";
 };
 
 var draw_blocks = function (bpos) {
   context.clearRect(0, 0, canvas.width, canvas.height);
   draw_grid();
 
-    for (var k = 0; k < bpos.length; k++) {
-      var x0 = bpos[k][0];
-      var y0 = bpos[k][1];
-      
-      context.fillStyle = "black";
-      switch (String(bpos[k][3])) {
-        case "rectangle":
-          context.fillRect(
-            (width / 9) * x0,
-            (height / 9) * y0,
-            width / 9,
-            height / 9
-          );
-      }
-      
-      context.fillStyle = "white";
-      context.font = "bold 16px Arial";
-      context.fillText(k+1, (width / 9) * (x0 +0.5), (height / 9) * (y0 +0.5) );
-      
+  for (var k = 0; k < bpos.length; k++) {
+    var x0 = bpos[k][0];
+    var y0 = bpos[k][1];
+
+    context.fillStyle = "black";
+    switch (String(bpos[k][3])) {
+      case "rectangle":
+        context.fillRect(
+          (width / 9) * x0,
+          (height / 9) * y0,
+          width / 9,
+          height / 9
+        );
     }
-  
+
+    context.fillStyle = "white";
+    context.font = "bold 16px Arial";
+    context.fillText(k + 1, (width / 9) * (x0 + 0.5), (height / 9) * (y0 + 0.5));
+
+  }
+
 };
 
-<<<<<<< HEAD
-var exec_instructions = function (instructions) {
-  return { rectangle: [[2, 2], [2, 8], [0, 4], [7, 5], [7, 8]] };
-=======
-var exec_instructions = function(instructions, bpos) {
-  for(var item=0; item<num_of_objects; item++){
-    for(var i=0; i < instructions[item].length; i++){
-      switch(instructions[item][i]){
+var exec_instructions = function (instructions, bpos) {
+  for (var item = 0; item < num_of_objects; item++) {
+    for (var i = 0; i < instructions[item].length; i++) {
+      switch (instructions[item][i]) {
         case "arrow_back": {
           //alert("arrow_back");
-          if(bpos[item][0] != 0){
+          if (bpos[item][0] != 0) {
             bpos[item][0] -= 1;
           }
           //alert(bpos[item]);
@@ -144,23 +158,23 @@ var exec_instructions = function(instructions, bpos) {
         }
         case "arrow_forward": {
           //alert("arrow_fwd");
-          if(bpos[item][0] != 8){
-            bpos[item][0] +=1;
+          if (bpos[item][0] != 8) {
+            bpos[item][0] += 1;
           }
           //alert(bpos[item]);
           break;
         }
         case "arrow_upward": {
           //alert("arrow_up");
-          if(bpos[item][1] != 0){
-            bpos[item][1] -=1;
+          if (bpos[item][1] != 0) {
+            bpos[item][1] -= 1;
           }
           //alert(bpos[item]);
           break;
         }
-        case "arrow_downward" : {
+        case "arrow_downward": {
           //alert("arrow_up");
-          if(bpos[item][1] != 8){
+          if (bpos[item][1] != 8) {
             bpos[item][1] += 1;
           }
           //alert(bpos[item]);
@@ -168,10 +182,9 @@ var exec_instructions = function(instructions, bpos) {
         }
       }
     }
-  } 
+  }
 
   return bpos;
->>>>>>> 7c4032e7cc9147fe6b2b74de95d1ee830703c028
 };
 
 var num_of_objects = 5;

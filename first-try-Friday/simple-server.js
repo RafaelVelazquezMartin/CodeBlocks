@@ -10,7 +10,7 @@ var verbose = false;
 // Routing
 app.use(express.static("public"));
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
@@ -19,11 +19,11 @@ var clients = [];
 var challenge_on = false;
 
 // Listen for incoming connections from clients
-io.sockets.on("connection", function(socket) {
+io.sockets.on("connection", function (socket) {
   console.log("Someone connected");
-  
+
   // Start listening for mouse move events
-  socket.on("mousemove", function(data) {
+  socket.on("mousemove", function (data) {
     // This line sends the event (broadcasts it)
     // to everyone except the originating client.
     socket.broadcast.emit("moving", data);
@@ -34,58 +34,68 @@ io.sockets.on("connection", function(socket) {
   //and store this on their socket/connection
   socket.userid = UUID();
   clients.push(socket);
-            
+
   //tell the player they connected, giving them their id
-  socket.emit('onconnected', { id: socket.userid } );
-            
+  socket.emit('onconnected', { id: socket.userid });
+
   //Useful to know when someone connects
   console.log('\t socket.io:: player ' + socket.userid + ' connected');
 
-  
-  socket.on('start', function(){
+  socket.on('reset timer', function (data) {
+    countdown = 30;
+    io.sockets.emit('timer', { countdown: countdown });
+  });
+
+  socket.on('start', function () {
     console.log("Creating a challenge");
     challenge_on = true;
-    var data = {challenge : create_challenge(), id : clients[random_integer(clients.length)].userid};
+    var data = { challenge: create_challenge(), id: clients[random_integer(clients.length)].userid };
     console.log(data.challenge.name);
     io.sockets.emit('set challenge', data);
+    var totalSecs = 30;
+    var countdown = totalSecs;
+    setInterval(function () {
+      countdown--;
+      io.sockets.emit('timer', { countdown: countdown, totalSecs: totalSecs });
+    }, 1000);
     console.log("Emitted a challenge to " + data.id);
   })
 
-  socket.on('end', function(newblockpositions){
+  socket.on('end', function (newblockpositions) {
     challenge_on = false;
     socket.broadcast.emit('end', newblockpositions);
   })
-                   
-  
+
+
   //When this client disconnects
   socket.on('disconnect', function () {
-      //Useful to know when someone disconnects
-      console.log('\t socket.io:: client disconnected ' + socket.userid );
-      var index = clients.indexOf(socket);
-      if (index !== -1) clients.splice(index, 1);
-      console.log("Number of clients is " + clients.length);
+    //Useful to know when someone disconnects
+    console.log('\t socket.io:: client disconnected ' + socket.userid);
+    var index = clients.indexOf(socket);
+    if (index !== -1) clients.splice(index, 1);
+    console.log("Number of clients is " + clients.length);
   }); //client.on disconnect
 
 });
 
 //var shapes = ["square", "rectangle", "sphere"];
-var challenges = [{name:"T", blocks:{rectangle:5}}];
+var challenges = [{ name: "T", blocks: { rectangle: 5 } }];
 
-var create_challenge = function(){
-  var challenge = {}; 
+var create_challenge = function () {
+  var challenge = {};
   var c = challenges[random_integer(challenges.length)];
 
-  var avail_pos = []; 
-  for(var i = 0; i < 9; i++){
-    for(var j=0; j<9; j++){
+  var avail_pos = [];
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 9; j++) {
       avail_pos.push([i, j]);
     }
   }
-  
-  challenge.name = c.name; 
+
+  challenge.name = c.name;
   challenge.blockpositions = [];
-  for(var shape in c.blocks){
-    for(var k=0; k<c.blocks[shape]; k++){
+  for (var shape in c.blocks) {
+    for (var k = 0; k < c.blocks[shape]; k++) {
       var n = random_integer(avail_pos.length);
       var pos = avail_pos[n];
       avail_pos.splice(n, 1);
@@ -100,6 +110,6 @@ var create_challenge = function(){
   return challenge;
 }
 
-var random_integer = function(limit){
+var random_integer = function (limit) {
   return Math.floor(Math.random() * limit);
 }

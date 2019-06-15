@@ -61,23 +61,41 @@ io.sockets.on("connection", function(socket) {
   socket.on('disconnect', function () {
       //Useful to know when someone disconnects
       console.log('\t socket.io:: client disconnected ' + socket.userid );
+      var index = clients.indexOf(socket);
+      if (index !== -1) clients.splice(index, 1);
+      console.log("Number of clients is " + clients.length);
   }); //client.on disconnect
 
 });
 
 //var shapes = ["square", "rectangle", "sphere"];
-var challenges = [{name:"T", blocks:5}];
+var challenges = [{name:"T", blocks:{rectangle:5}}];
 
 var create_challenge = function(){
   var challenge = {}; 
-  var i = random_integer(challenges.length);
+  var c = challenges[random_integer(challenges.length)];
 
-  for(var j = 0; j < 5; j++){
-
+  var avail_pos = []; 
+  for(var i = 0; i < 9; i++){
+    for(var j=0; j<9; j++){
+      avail_pos.push([i, j]);
+    }
   }
   
-  challenge.name = challenges[i].name; 
-  challenge.blockpositions = {rectangle:[[1, 2], [2, 5], [1, 4], [4, 5], [7, 8]]};
+  challenge.name = c.name; 
+  challenge.blockpositions = [];
+  for(var shape in c.blocks){
+    for(var k=0; k<c.blocks[shape]; k++){
+      var n = random_integer(avail_pos.length);
+      var pos = avail_pos[n];
+      avail_pos.splice(n, 1);
+      challenge.blockpositions.push([pos[0], pos[1], 0, shape]);
+    }
+  }
+
+  console.log(challenge);
+
+  //challenge.blockpositions = {rectangle:[[1, 2], [2, 5], [1, 4], [4, 5], [7, 8]]};
 
   return challenge;
 }
